@@ -12,15 +12,26 @@ if [[ -x "`which cygpath.exe`" ]]; then
   KEYCLOAK_DATA_DIR=$(cygpath.exe -m "$KEYCLOAK_DATA_DIR" | sed -e 's,/,\\,gm')
 fi
 
+cat <<-EOF
+  CONFIG
+  ==============================================================================
+  KEYCLOAK_VERSION:     $KEYCLOAK_VERSION
+  KEYCLOAK_LISTEN_PORT: $KEYCLOAK_LISTEN_PORT
+  KEYCLOAK_DATA_DIR:    $KEYCLOAK_DATA_DIR
+  ==============================================================================
+
+EOF
+
 docker container stop "keycloak-$KEYCLOAK_VERSION" || true
 docker container rm "keycloak-$KEYCLOAK_VERSION" || true
 docker run --name "keycloak-$KEYCLOAK_VERSION" \
-    -p 8443:$KEYCLOAK_LISTEN_PORT \
+    -p $KEYCLOAK_LISTEN_PORT:8443 \
     -e KEYCLOAK_ADMIN=admin \
     -e KEYCLOAK_ADMIN_PASSWORD=password \
     -v "$KEYCLOAK_DATA_DIR":/opt/keycloak/data/import \
     keycloak-provider-$KEYCLOAK_VERSION \
     start --optimized \
     --hostname=localhost \
-    --import-realm
+    --import-realm \
+    --hostname-port=$KEYCLOAK_LISTEN_PORT
 
