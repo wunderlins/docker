@@ -25,6 +25,7 @@ EOF
 docker container stop "keycloak-$KEYCLOAK_VERSION" || true
 docker container rm "keycloak-$KEYCLOAK_VERSION" || true
 docker run --name "keycloak-$KEYCLOAK_VERSION" \
+    --detach \
     -p $KEYCLOAK_LISTEN_PORT:8443 \
     -e KEYCLOAK_ADMIN=admin \
     -e KEYCLOAK_ADMIN_PASSWORD=password \
@@ -35,3 +36,23 @@ docker run --name "keycloak-$KEYCLOAK_VERSION" \
     --import-realm \
     --hostname-port=$KEYCLOAK_LISTEN_PORT
 
+cat <<-EOF
+
+================================================================================
+Keycloak $KEYCLOAK_VERSION is starting, you can access the service here:
+
+https://localhost:$KEYCLOAK_LISTEN_PORT/admin
+https://localhost:$KEYCLOAK_LISTEN_PORT/realms/<REALM>/account
+
+Default realms are 'master' and 'myrealm'. 'myrealm' has a defult user
+    username: user
+    password: password
+
+Admin user is:
+    username: admin
+    password: password
+
+With every reload, realm data is imported from this folder:
+$KEYCLOAK_DATA_DIR
+
+EOF
