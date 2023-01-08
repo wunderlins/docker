@@ -1,4 +1,4 @@
-# Custom Keycload Environment 
+# Custom Keycloak Environment 
 
 This repo contains a collection of scripts to create and run a custom keycloak
 deployment in docker.
