@@ -37,7 +37,7 @@ if [[ $running == true ]]; then
 fi
 
 # try to remove if it exists and has to be recycled
-if [ $KEYCLOAK_RESET_STATE_DATA == true ] && [ ! -z "$id" ]; then
+if [[ $KEYCLOAK_RESET_STATE_DATA == true ]] && [[ ! -z "$id" ]]; then
   echo "Deleting existing instance ..."
   docker container rm "$instance_name" >/dev/null 2>/dev/null || true
 fi
@@ -45,7 +45,7 @@ fi
 # create container and import data if we:
 # - do not recycle (reuse old state data) or ...
 # - if the instance does not yet exist
-if [ $KEYCLOAK_RESET_STATE_DATA == true ] || [ -z "$id" ]; then
+if [[ $KEYCLOAK_RESET_STATE_DATA == true ]] || [[ -z "$id" ]]; then
   echo "Starting fresh instance ..."
   id=$(docker run --name "$instance_name" \
       --detach \
@@ -82,7 +82,7 @@ Admin user is:
 
 EOF
 
-if [ $KEYCLOAK_RESET_STATE_DATA == true ]; then
+if [[ $KEYCLOAK_RESET_STATE_DATA == true ]]; then
 cat <<-EOF
 
 With every reload, realm data is imported from this folder:
