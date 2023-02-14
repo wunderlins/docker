@@ -1,4 +1,6 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
+
+# https://medium.com/bright-days/basic-docker-image-dockerfile-sql-server-with-custom-prefill-db-script-8f12f197867a
 
 script_dir=$(readlink -f $(dirname $0))
 . "$script_dir/../library.sh"
@@ -54,11 +56,21 @@ if [[ $MSSQL_RESET_STATE_DATA == true ]] || [[ -z "$id" ]]; then
       -e 'TZ=Europe/Zurich' \
       -e "MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD" \
       -e 'ACCEPT_EULA=Y' \
+      -v "$MSSQL_DATA_DIR":/src/import \
       mssql-provider-$MSSQL_VERSION )
 else
   echo "Starting existing instance ..."
   out=$(docker start "$instance_name")
 fi
+
+echo docker run --name "$instance_name" \
+      --detach \
+      -p $MSSQL_LISTEN_PORT:1433 \
+      -e 'TZ=Europe/Zurich' \
+      -e "MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD" \
+      -e 'ACCEPT_EULA=Y' \
+      -v "$MSSQL_DATA_DIR":/src/import \
+      mssql-provider-$MSSQL_VERSION
 
 cat <<-EOF
 
@@ -69,6 +81,9 @@ Instance Id: $id
 SA:          $MSSQL_SA_PASSWORD
 port:        $MSSQL_LISTEN_PORT
 PID:         Developer
+
+Connect String:
+"Server=localhost:$MSSQL_LISTEN_PORT;Database=<dbname>;User Id=sa;password=$MSSQL_SA_PASSWORD;Trusted_Connection=False;MultipleActiveResultSets=true;"
 
 EOF
 
