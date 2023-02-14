@@ -83,7 +83,10 @@ port:        $MSSQL_LISTEN_PORT
 PID:         Developer
 
 Connect String:
-"Server=localhost:$MSSQL_LISTEN_PORT;Database=<dbname>;User Id=sa;password=$MSSQL_SA_PASSWORD;Trusted_Connection=False;MultipleActiveResultSets=true;"
+"Server=localhost,:$MSSQL_LISTEN_PORT;Database=eTest;Integrated Security=false;\
+User Id=sa;password=$MSSQL_SA_PASSWORD;Trusted_Connection=False;\
+MultipleActiveResultSets=true;"
+
 
 EOF
 
