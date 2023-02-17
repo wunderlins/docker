@@ -6,11 +6,16 @@ script_dir=$(readlink -f $(dirname $0))
 . "$script_dir/../library.sh"
 
 . "$script_dir/env.sh"
-if [[ -f "$script_dir/../../docker_env.sh" ]]; then
-    . "$script_dir/../../docker_env.sh"
+if [[ -f "$script_dir/../../docker-env.sh" ]]; then
+    . "$script_dir/../../docker-env.sh"
 fi
 
 instance_name="mssql-$MSSQL_VERSION"
+if [[ ! -z "$DOCKER_PROJECT" ]]; then
+  pname=$(echo "$DOCKER_PROJECT" | tr '[:upper:]' '[:lower:]')
+  instance_name="$pname-mssql-$MSSQL_VERSION"
+fi
+
 instace=$(docker_ls | grep ^$instance_name)
 id=$(echo $instace | cut -d';' -f2)
 running=false
@@ -77,10 +82,11 @@ cat <<-EOF
 ================================================================================
 MSSQL $MSSQL_VERSION is starting, you can access the service here:
 
-Instance Id: $id
-SA:          $MSSQL_SA_PASSWORD
-port:        $MSSQL_LISTEN_PORT
-PID:         Developer
+Instance Id:   $id
+Instance Name: $instance_name
+SA:            $MSSQL_SA_PASSWORD
+port:          $MSSQL_LISTEN_PORT
+PID:           Developer
 
 Connect String:
 "Server=localhost,:$MSSQL_LISTEN_PORT;Database=eTest;Integrated Security=false;\

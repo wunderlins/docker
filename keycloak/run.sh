@@ -4,11 +4,16 @@ script_dir=$(readlink -f $(dirname $0))
 . "$script_dir/../library.sh"
 
 . "$script_dir/env.sh"
-if [[ -f "$script_dir/../../docker_env.sh" ]]; then
-    . "$script_dir/../../docker_env.sh"
+if [[ -f "$script_dir/../../docker-env.sh" ]]; then
+    . "$script_dir/../../docker-env.sh"
 fi
 
 instance_name="keycloak-$KEYCLOAK_VERSION"
+if [[ ! -z "$DOCKER_PROJECT" ]]; then
+  pname=$(echo "$DOCKER_PROJECT" | tr '[:upper:]' '[:lower:]')
+  instance_name="$pname-keycloak-$KEYCLOAK_VERSION"
+fi
+
 instace=$(docker_ls | grep ^$instance_name)
 id=$(echo $instace | cut -d';' -f2)
 running=false
@@ -68,9 +73,10 @@ cat <<-EOF
 ================================================================================
 Keycloak $KEYCLOAK_VERSION is starting, you can access the service here:
 
-Instance Id: $id
-Admin:       https://localhost:$KEYCLOAK_LISTEN_PORT/admin
-Realsm:      https://localhost:$KEYCLOAK_LISTEN_PORT/realms/<REALM>/account
+Instance Id:   $id
+Instance Name: $instance_name
+Admin:         https://localhost:$KEYCLOAK_LISTEN_PORT/admin
+Realsm:        https://localhost:$KEYCLOAK_LISTEN_PORT/realms/<REALM>/account
 
 Default realms are 'master' and 'myrealm'. 'myrealm' has a defult user
     username: user

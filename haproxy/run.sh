@@ -6,11 +6,16 @@ script_dir=$(readlink -f $(dirname $0))
 . "$script_dir/../library.sh"
 
 . "$script_dir/env.sh"
-if [[ -f "$script_dir/../../docker_env.sh" ]]; then
-    . "$script_dir/../../docker_env.sh"
+if [[ -f "$script_dir/../../docker-env.sh" ]]; then
+    . "$script_dir/../../docker-env.sh"
 fi
 
 instance_name="haproxy-$HAPROXY_VERSION"
+if [[ ! -z "$DOCKER_PROJECT" ]]; then
+  pname=$(echo "$DOCKER_PROJECT" | tr '[:upper:]' '[:lower:]')
+  instance_name="$pname-haproxy-$HAPROXY_VERSION"
+fi
+
 instace=$(docker_ls | grep ^$instance_name)
 id=$(echo $instace | cut -d';' -f2)
 running=false
@@ -70,7 +75,8 @@ cat <<-EOF
 ================================================================================
 HAPROXY $HAPROXY_VERSION is starting, you can access the service here:
 
-Instance Id: $id
+Instance Id:   $id
+Instance Name: $instance_name
 
 EOF
 

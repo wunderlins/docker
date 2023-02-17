@@ -2,7 +2,6 @@
 
 script_dir=$(readlink -f $(dirname $0))
 . "$script_dir/../library.sh"
-
 . "$script_dir/config.sh"
 
 # if the container exists, we do not create it

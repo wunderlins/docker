@@ -106,21 +106,28 @@ function docker_use_config() {
 ##
 function docker_create_config() {
     if [[ ! -d docker-images ]]; then
-        echo "Thsi command must be run one folder above the docker-images repo";
+        echo "This command must be run one folder above the docker-images repo";
         exit 1;
     fi
 
     project_name=$(basename $(readlink -f ..))
 
     cat <<-EOF> docker-env.sh
-        # docker test image configuration.
-        # to enable, set «<FEATURE>_START=true»
-        #
+		# docker test image configuration.
+		# to enable, set «<FEATURE>_START=true»
+		#
 
-        PROJECT=$project_name
+		DOCKER_PROJECT=$project_name
 
 EOF
 
-    echo "WARNING: set project name 'PROJECT=$project_name' before usage"
+    for f in $(ls docker-images/*/config.sh); do
+        echo $f
+        script_dir=$(readlink -f $(dirname $f))
+        . $f
+        . $(dirname $f)/create-env.sh >> docker-env.sh
+    done
+
+    echo "WARNING: set project name 'DOCKER_PROJECT=$project_name' before usage"
 
 }
