@@ -99,6 +99,24 @@ function docker_use_config() {
     fi
 }
 
+function docker_start() {
+    if [[ ! -d docker-images ]]; then
+        echo "This command must be run one folder above the docker-images repo";
+        exit 1;
+    fi
+
+    . ./docker-env.sh
+
+    containers=$(set -o posix ; set | \
+        grep _START=true | \
+        awk -F'=' '{gsub(/_START/,""); print tolower($1)}')
+    
+    for c in $containers; do
+        echo "Starting $c"
+        ./docker-images/$c/run.sh
+    done
+}
+
 ## @brief bueild a config file
 ##
 ## This wil build a default config file for all containers. it will 
@@ -131,3 +149,4 @@ EOF
     echo "WARNING: set project name 'DOCKER_PROJECT=$project_name' before usage"
 
 }
+

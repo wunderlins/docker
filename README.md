@@ -24,6 +24,15 @@ cd docker
 docker_create_config
 ```
 
-# docker_env.sh
+edit `docker-env.sh` and at least set one `XXX_START` variables to true. Also 
+check paths, you may set your project specific data directories.
 
-see  `*/build.sh` for variables that must be configured.
+## 3. run
+
+in the docker folder where `docker-env.sh` is, run rhwe follwoing command:
+
+```bash
+cd docker
+. ./docker-images/library.sh
+docker_start # will create images, initialize and start
+```
