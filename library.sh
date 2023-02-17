@@ -53,3 +53,29 @@ function docker_console() {
 
     docker container exec -it $1 bash
 }
+
+## @brief bueild a config file
+##
+## This wil build a default config file for all containers. it will 
+## overwrite the exiting config if there is any
+##
+function docker_create_config() {
+    if [[ ! -d docker-images ]]; then
+        echo "Thsi command must be run one folder above the docker-images repo";
+        exit 1;
+    fi
+
+    project_name=$(basename $(readlink -f ..))
+
+    cat <<-EOF> docker-env.sh
+        # docker test image configuration.
+        # to enable, set «<FEATURE>_START=true»
+        #
+
+        PROJECT=$project_name
+
+EOF
+
+    echo "WARNING: set project name 'PROJECT=$project_name' before usage"
+
+}
