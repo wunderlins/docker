@@ -47,6 +47,8 @@ if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
     echo "KEYCLOAK_DATA_DIR=$KEYCLOAK_DATA_DIR"                   >> "$script_dir/env.sh"
     echo '# recreate realms from import dir on every start?'      >> "$script_dir/env.sh"
     echo "KEYCLOAK_RESET_STATE_DATA=$KEYCLOAK_RESET_STATE_DATA"   >> "$script_dir/env.sh"
+    echo "" >> "$script_dir/env.sh"
+    echo "" >> "$script_dir/env.sh"
 else
     echo "using project env file @ $(readlink -f $script_dir/../../docker_env.sh)"
     . "$script_dir/../../docker_env.sh"

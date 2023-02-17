@@ -41,6 +41,8 @@ if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
     echo "HAPROXY_RESET_STATE_DATA=$HAPROXY_RESET_STATE_DATA"             >> "$script_dir/env.sh"
     echo '# data directory to mount '  >> "$script_dir/env.sh"
     echo "HAPROXY_DATA_DIR=$HAPROXY_DATA_DIR"             >> "$script_dir/env.sh"
+    echo "" >> "$script_dir/env.sh"
+    echo "" >> "$script_dir/env.sh"
 else
     echo "using project env file @ $(readlink -f $script_dir/../../docker_env.sh)"
     . "$script_dir/../../docker_env.sh"
