@@ -51,10 +51,11 @@ function docker_image_ls() {
 ## @param path unix path to directory or file
 ## @return windows path with backslashes and drive letter
 function normalize_windows_path() {
+    dir=$(readlink -f $1)
     if [[ -x "`which cygpath.exe`" ]]; then
-        cygpath.exe -m "$1" | sed -e 's,/,\\,gm'
+        cygpath.exe -m "$dir" | sed -e 's,/,\\,gm'
     else
-        echo "$1"
+        echo "$dir"
     fi
 }
 
