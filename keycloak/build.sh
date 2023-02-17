@@ -37,7 +37,7 @@ fi
 # create default env file
 if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
     echo "Generating default env.sh file"
-    echo "KEYCLOAK=true" > "$script_dir/env.sh"
+    echo "KEYCLOAK_START=false" > "$script_dir/env.sh"
     echo '# keycloak version, see https://quay.io/repository/keycloak/keycloak?tab=tags' \
          >> "$script_dir/env.sh"
     echo "KEYCLOAK_VERSION=$KEYCLOAK_VERSION"                     >> "$script_dir/env.sh"

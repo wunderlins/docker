@@ -29,7 +29,7 @@ fi
 
 # create default env file
 if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
-    echo "HAPROXY=true" > "$script_dir/env.sh"
+    echo "HAPROXY_START=false" > "$script_dir/env.sh"
     echo "Generating default env.sh file"
     echo '# hyproxy version, see https://hub.docker.com/_/haproxy/' \
          >> "$script_dir/env.sh"

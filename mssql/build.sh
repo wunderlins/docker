@@ -40,7 +40,7 @@ fi
 # create default env file
 if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
     echo "Generating default env.sh file"
-    echo "MSSQL=true" > "$script_dir/env.sh"
+    echo "MSSQL_START=false" > "$script_dir/env.sh"
     echo '# mssql version, see https://quay.io/repository/keycloak/keycloak?tab=tags&tag=latest' \
          >> "$script_dir/env.sh"
     echo "MSSQL_VERSION=$MSSQL_VERSION"                     >> "$script_dir/env.sh"
