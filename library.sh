@@ -38,3 +38,18 @@ function normalize_windows_path() {
         echo "$1"
     fi
 }
+
+## @brief attach a rot console to a container
+##
+## 
+## @note if param 1 (cotainer name) is missing, a list of containers will be shown
+## @param container name
+## @return void
+function docker_console() {
+    if [[ -z "$1" ]]; then
+        docker_ls;
+        return;
+    fi
+
+    docker container exec -it $1 bash
+}
