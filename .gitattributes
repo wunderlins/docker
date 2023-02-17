@@ -1,0 +1,5 @@
+# global settings, never convert line endings
+* -text
+# always use crlf for bat files
+*.bat -crlf
+
