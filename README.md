@@ -15,7 +15,14 @@ git push
 
 ## 2. add config
 
-add a bash script with the docker config called `docker_env.sh`
+add a bash script with the docker config called `docker_env.sh` or create
+a default config:
+
+```bash
+cd docker
+. ./docker-images/library.sh
+docker_create_config
+```
 
 # docker_env.sh
 

@@ -3,7 +3,7 @@
 # a collection of helper functions. incloud with source like:
 # source library.sh
 
-## @brief machine readable list of docker images
+## @brief machine readable list of container images
 ## @param filter (optional) a list of filter criterias 
 ## @see https://docs.docker.com/engine/reference/commandline/ps/#filtering
 ## @return String list of proccess in the format container_id;container_name;running|exited
@@ -14,6 +14,25 @@ function docker_ls() {
 
     if [[ ! -z "$1" ]]; then f="--filter $1"; fi
     for line in $(docker ps --all --no-trunc --format "table {{.Names}};{{.ID}};{{.State}}"); do
+        # skip header
+        if [[ $first_line_done == false ]]; then
+            first_line_done=true;
+        else
+            echo $line;
+        fi
+    done
+}
+
+## @brief machine readable list of images
+## @param filter (optional) a list of filter criterias 
+## @see https://docs.docker.com/engine/reference/commandline/ps/#filtering
+## @return String list of proccess in the format container_id;container_name;running|exited
+function docker_image_ls() {
+    first_line_done=false;
+    local IFS="
+"
+    if [[ ! -z "$1" ]]; then f="--filter $1"; fi
+    for line in $(docker image ls --all --no-trunc --format "table {{.Repository}};{{.ID}};{{.Tag}}"); do
         # skip header
         if [[ $first_line_done == false ]]; then
             first_line_done=true;
@@ -42,7 +61,7 @@ function normalize_windows_path() {
 ## @brief attach a rot console to a container
 ##
 ## 
-## @note if param 1 (cotainer name) is missing, a list of containers will be shown
+## @note if param 1 (container name) is missing, a list of containers will be shown
 ## @param container name
 ## @return void
 function docker_console() {
@@ -52,6 +71,32 @@ function docker_console() {
     fi
 
     docker container exec -it $1 bash
+}
+
+## @brief check if image already exists
+##
+## @param image name
+function docker_image_exists() {
+    instace=$(docker_image_ls | grep ^$1)
+    if [ ! -z "$instace" ]; then
+        echo "$1 exists, delete it to recreate image."
+        exit 0;
+    fi
+}
+
+## @brief find config to use
+##
+## We are lookin in the project directory for  `docker_env.sh`. if not found
+## then we create env.sh and invlude it (default settings).
+## @param FQ Path to container directory
+function docker_use_config() {
+    local script_dir=$1
+    if [[ ! -f "$script_dir/../../docker_env.sh" ]]; then
+        . "$script_dir/create-env.sh" > "$script_dir/env.sh"
+    else
+        echo "using project env file @ $(readlink -f $script_dir/../../docker_env.sh)"
+        . "$script_dir/../../docker_env.sh"
+    fi
 }
 
 ## @brief bueild a config file
