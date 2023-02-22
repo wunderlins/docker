@@ -8,4 +8,5 @@ WORKDIR /src
 COPY scripts/entrypoint.sh entrypoint.sh
 COPY scripts/setup_database.sh setup_database.sh
 RUN echo "pw: $SA_PASSWORD"
-ENTRYPOINT ["bash", "./entrypoint.sh", "$SA_PASSWORD"]
+#ENTRYPOINT ["bash", "./entrypoint.sh", "$SA_PASSWORD"]
+CMD /bin/bash ./entrypoint.sh "$SA_PASSWORD" > /tmp/startup.log 2>&1
