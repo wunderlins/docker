@@ -25,4 +25,6 @@ services:
       MSSQL_PID: Developer
       MSSQL_TCP_PORT: 1433
       SA_PASSWORD: "Pa55w0rd!"
+    #command: /bin/bash /src/scripts/entrypoint.sh "$${SA_PASSWORD}" > /tmp/startup.log 2>&1
+      
 
