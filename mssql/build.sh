@@ -13,6 +13,6 @@ docker_use_config "$script_dir"
 
 # run build process
 docker build \
-    --file "$script_dir/Dockerfile" \
+    --file "$script_dir/Dockerfile.old" \
     --build-arg IMAGE_VERSION="$MSSQL_VERSION" --build-arg MSSQL_SA_PASSWORD="$MSSQL_SA_PASSWORD" \
     "$script_dir" -t mssql-provider-$MSSQL_VERSION

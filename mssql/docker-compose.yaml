@@ -1,0 +1,28 @@
+version: "3.9"
+name: "mssql-latest"
+
+services:
+  # https://hub.docker.com/_/microsoft-mssql-server
+  mssql:
+    container_name: mssql-latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile    
+    hostname:  mssql-latest
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+    - target: 1433
+      published: 1434
+      protocol: tcp
+      mode: host
+    working_dir: /src
+    volumes:
+      - ./import/:/src/import
+      - ./scripts/:/src/scripts
+    environment:
+      UPSTREAM_IP: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+      MSSQL_TCP_PORT: 1433
+      SA_PASSWORD: "Pa55w0rd!"
+
