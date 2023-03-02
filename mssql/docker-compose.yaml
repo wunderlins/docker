@@ -24,6 +24,6 @@ services:
       ACCEPT_EULA: Y
       MSSQL_PID: Developer
       MSSQL_TCP_PORT: 1433
-      SA_PASSWORD: "Pa55w0rd!"
+      SA_PASSWORD: Pa55w0rd,
       
 
