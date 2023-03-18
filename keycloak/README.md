@@ -1,5 +1,12 @@
 # Custom Keycloak Environment 
 
+```bash
+# run once
+docker compose build
+# start container with
+docker compuse up -d
+```
+
 This repo contains a collection of scripts to create and run a custom keycloak
 deployment in docker.
 
@@ -7,25 +14,6 @@ Information taken from the official keycloak docker installation manual
 [https://www.keycloak.org/server/containers](https://www.keycloak.org/server/containers).
 
 **THIS DEPLOYMENT IS NOT INTENDED TO BE USED IN PRODUCTION ENVIRONMENT**!
-
-## Scripts and configs
-
-- `env.sh`: (created when running build) contains configuration variables to be used in your project
-- `build.sh`: does build and deploy the image
-- `run.sh`: does start a deployed image
-- `Dockerfile`: the container configuration, used to build a new container fro mthe authorative sources with our custom configuration. Use this to build/update the image whenever needed.
-
-## Building the image
-
-To build an image [https://quay.io/repository/keycloak/keycloak?tab=tags&tag=latest](https://quay.io/repository/keycloak/keycloak?tab=tags&tag=latest)
-
-1. run `build.sh`
-2. copy content of `env.sh` into your project's `docker_env.sh` file
-3. if you don't want to use the latest version, set version in `docker_env.sh`: `KEYCLOAK_VERSION=X.X.X`
-4. run `build.sh` again
-5. when done, you will find an new docker image called `keycloak-provider-X.X.X` in the console
-6. (optional): export realms (see below) and place them in the `KEYCLOAK_DATA_DIR` configured in `docker_env.sh`
-7. use `run.sh` to start it
 
 ## Provided default Ralms
 

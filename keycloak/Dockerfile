@@ -6,8 +6,8 @@ ARG IMAGE_VERSION=latest
 FROM quay.io/keycloak/keycloak:$IMAGE_VERSION as builder
 
 # Enable health and metrics support
-ENV KC_HEALTH_ENABLED=true
-ENV KC_METRICS_ENABLED=true
+#ENV KC_HEALTH_ENABLED=true
+#ENV KC_METRICS_ENABLED=true
 
 # disable strict hostname checking for dev server
 #ENV KC_HOSTNAME_STRICT=false

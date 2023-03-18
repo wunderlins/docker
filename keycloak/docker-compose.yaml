@@ -1,0 +1,29 @@
+version: "3.9"
+name: "keycloak-latest"
+
+services:
+  # https://www.keycloak.org/server/containers
+  keycloak:
+    container_name: keycloak-latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile    
+    hostname:  keycloak-latest
+    image: quay.io/keycloak/keycloak:latest
+    working_dir: /opt/keycloak
+    ports:
+      - 8443:8443
+    volumes:
+      - ./import/:/opt/keycloak/data/import
+    environment:
+      UPSTREAM_IP: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
+      KEYCLOAK_LISTEN_PORT: 4883
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    command: 
+      - start-dev 
+      - --import-realm
+      
+
