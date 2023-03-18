@@ -1,0 +1,6 @@
+# https://quay.io/repository/keycloak/keycloak?tab=tags&tag=latest
+IMAGE_VERSION=latest
+#IMAGE_VERSION=19.0
+KEYCLOAK_LISTEN_PORT=4885
+KEYCLOAK_ADMIN=admin1
+KEYCLOAK_ADMIN_PASSWORD=password1
