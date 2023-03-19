@@ -15,6 +15,8 @@ services:
       - ${KEYCLOAK_LISTEN_PORT}:8443
     volumes:
       - ./import/:/opt/keycloak/data/import
+      # optional, ssl certs
+      - ./certs/:/etc/x509/https
     environment:
       UPSTREAM_IP: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
       KEYCLOAK_LISTEN_PORT: ${KEYCLOAK_LISTEN_PORT}
@@ -22,16 +24,19 @@ services:
       KC_METRICS_ENABLED: true
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_HOSTNAME: ${HOSTNAME}
       IMAGE_VERSION: ${IMAGE_VERSION}
     command: 
       # dev
       - start-dev 
       - --import-realm
-      - --hostname=${HOSTNAME}
       - --hostname-port=${KEYCLOAK_LISTEN_PORT}
+      - --https-certificate-file=/etc/x509/https/tls.crt
+      - --https-certificate-key-file=/etc/x509/https/tls.key
       # prod
       # - start --optimized
-      # - --hostname=${HOSTNAME}
       # - --hostname-port=${KEYCLOAK_LISTEN_PORT}
+      #- --https-certificate-file=/etc/x509/https/tls.crt
+      #- --https-certificate-key-file=/etc/x509/https/tls.key
       
 
