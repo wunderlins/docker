@@ -24,7 +24,14 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       IMAGE_VERSION: ${IMAGE_VERSION}
     command: 
+      # dev
       - start-dev 
       - --import-realm
+      - --hostname=${HOSTNAME}
+      - --hostname-port=${KEYCLOAK_LISTEN_PORT}
+      # prod
+      # - start --optimized
+      # - --hostname=${HOSTNAME}
+      # - --hostname-port=${KEYCLOAK_LISTEN_PORT}
       
 
