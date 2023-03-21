@@ -31,8 +31,8 @@ services:
       - start-dev 
       - --import-realm
       - --hostname-port=${KEYCLOAK_LISTEN_PORT}
-      - --https-certificate-file=/etc/x509/https/tls.crt
-      - --https-certificate-key-file=/etc/x509/https/tls.key
+      #- --https-certificate-file=/etc/x509/https/tls.crt
+      #- --https-certificate-key-file=/etc/x509/https/tls.key
       # prod
       # - start --optimized
       # - --hostname-port=${KEYCLOAK_LISTEN_PORT}
