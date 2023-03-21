@@ -4,9 +4,10 @@ name: "nginx"
 services:
   nginx:
     image: nginx
-    volumes:
-    #- ./config/nginx.conf:/etc/nginx/nginx.conf:ro
-    - ./html:/etc/nginx/templates
+    volumes: 
+    - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./config/conf.d:/etc/nginx/conf.d:ro
+    - ./html:/usr/share/nginx/html
     ports:
     - "8080:80"
     environment:
