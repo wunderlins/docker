@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<script src="https://localhost:4885/js/keycloak.js"></script>
+<script>
+    function initKeycloak() {
+        const keycloak = new Keycloak(
+        {
+    url: 'https://wus-splatter:4885',
+    realm: 'myrealm',
+    clientId: 'javascript-test'
+}
+        );
+        keycloak.init().then(function(authenticated) {
+            alert(authenticated ? 'authenticated' : 'not authenticated');
+        }).catch(function() {
+            alert('failed to initialize');
+        });
+    }
+</script>
+</head>
+<body onload="initKeycloak()">
+<!-- your page content goes here -->
+<h1>Hello</h1>
+</body>
+</html>

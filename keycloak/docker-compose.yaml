@@ -26,10 +26,16 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KEYCLOAK_HOSTNAME: ${HOSTNAME}
       IMAGE_VERSION: ${IMAGE_VERSION}
+      KC_HOSTNAME_STRICT_HTTPS: true
+      KC_HOSTNAME: ${HOSTNAME}
+      KC_PROXY: edge
+      KC_HOSTNAME_ADMIN_URL: "https://${HOSTNAME}:${KEYCLOAK_LISTEN_PORT}"
+      KC_HTTPS_PORT: ${KEYCLOAK_LISTEN_PORT}
     command: 
       # dev
       - start-dev 
       - --import-realm
+      - --hostname=${HOSTNAME}
       - --hostname-port=${KEYCLOAK_LISTEN_PORT}
       #- --https-certificate-file=/etc/x509/https/tls.crt
       #- --https-certificate-key-file=/etc/x509/https/tls.key

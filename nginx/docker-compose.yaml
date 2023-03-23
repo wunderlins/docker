@@ -9,8 +9,8 @@ services:
     - ./config/conf.d:/etc/nginx/conf.d:ro
     - ./html:/usr/share/nginx/html
     ports:
-    - "8080:80"
+    - "${PORT}:80"
     environment:
     # - NGINX_HOST=foobar.com
     - NGINX_PORT=80
-    - NGINX_ENTRYPOINT_QUIET_LOGS=0
+    - NGINX_ENTRYPOINT_QUIET_LOGS=${NGINX_ENTRYPOINT_QUIET_LOGS}
