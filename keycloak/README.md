@@ -19,13 +19,13 @@ Information taken from the official keycloak docker installation manual
 
 ### master
 
-1. [https://localhost:8443/admin](https://localhost:8443/admin)
-2. user `admin`/`password`
+1. [http://localhost:8080/admin](http://localhost:8080/admin)
+2. user `admin1`/`password1`
 
 
 ### myrealm
 
-1. [http://localhost:8444/realms/myrealm/account](http://localhost:8444/realms/myrealm/account)
+1. [http://localhost:8080/realms/myrealm/account](http://localhost:8080/realms/myrealm/account)
 2. user `user`, pw: `password`
 
 ## export realm data from existing Keycloak instance

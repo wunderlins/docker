@@ -29,11 +29,7 @@
     "oidc.ciba.grant.enabled": "false",
     "oauth2.device.authorization.grant.enabled": "false",
     "backchannel.logout.session.required": "true",
-    "backchannel.logout.revoke.offline.tokens": "false",
-    "login_theme": "",
-    "display.on.consent.screen": false,
-    "frontchannel.logout.url": "",
-    "backchannel.logout.url": ""
+    "backchannel.logout.revoke.offline.tokens": "false"
   },
   "authenticationFlowBindingOverrides": {},
   "fullScopeAllowed": true,
@@ -55,6 +51,5 @@
     "view": true,
     "configure": true,
     "manage": true
-  },
-  "authorizationServicesEnabled": false
+  }
 }

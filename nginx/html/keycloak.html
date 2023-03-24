@@ -2,19 +2,36 @@
 
 <html>
 <head>
-<script src="https://localhost:4885/js/keycloak.js"></script>
+<script src="http://localhost:8080/js/keycloak.js"></script>
 <script>
     function initKeycloak() {
-        const keycloak = new Keycloak(
-        {
-    url: 'https://wus-splatter:4885',
-    realm: 'myrealm',
-    clientId: 'javascript-test'
-}
-        );
-        keycloak.init().then(function(authenticated) {
+        /*
+        const keycloak = new Keycloak({
+            url: 'http://localhost:8080',
+            realm: 'myrealm',
+            clientId: 'javascript-test',
+            "auth-server-url": "http://localhost:8080/",
+            "ssl-required": "external",
+            "resource": "javascript-test",
+            "public-client": true,
+            "verify-token-audience": true,
+            "use-resource-role-mappings": true,
+            "confidential-port": 0
+        });
+        */
+        //const keycloak = new Keycloak('javascript-test.json');
+        const keycloak = new Keycloak({
+            url: 'http://localhost:8080/',
+            realm: 'myrealm',
+            clientId: 'javascript-test'
+        });
+        keycloak.init({
+            checkLoginIframe: false,
+            onLoad: 'login-required'
+        }).then(function(authenticated) {
             alert(authenticated ? 'authenticated' : 'not authenticated');
-        }).catch(function() {
+        }).catch(function(e) {
+            console.error(e)
             alert('failed to initialize');
         });
     }
