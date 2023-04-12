@@ -1,0 +1,9 @@
+version : '3.9'
+
+services:
+  haproxy:
+      image: haproxy:latest
+      ports:
+        - 8080:8888
+      volumes:
+        - ./import:/usr/local/etc/haproxy:ro
