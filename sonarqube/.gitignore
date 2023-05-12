@@ -1,0 +1,4 @@
+sonarqube_logs/*
+sonarqube_data/*
+postgresql_data/*
+.env
